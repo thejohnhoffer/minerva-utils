@@ -1,0 +1,16 @@
+{
+    "is_autosave": false,
+    "defaults": [],
+    "waypoints": [],
+    "groups": [],
+    "sample_info": {
+        "rotation": 0,
+        "name": "",
+        "text": ""
+    },
+    "csv_file": "",
+    "in_file": "",
+    "root_dir": "",
+    "out_name": "",
+    "masks": []
+}

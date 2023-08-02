@@ -2,6 +2,14 @@ const fs = require('fs');
 
 // Read a json file
 const read_json = (path) => {
+  if (!fs.existsSync(path)) {
+    console.log(`Error: ${path} does not exist`);
+    process.exit(1);
+  }
+  if (!path.endsWith('.json')) {
+    console.log(`Error: ${path} is not a json file`);
+    process.exit(1);
+  }
   return JSON.parse(fs.readFileSync(path, 'utf8'));
 }
 
@@ -10,16 +18,26 @@ const write_json = (path, data) => {
   fs.writeFileSync(path, JSON.stringify(data, null, 2));
 }
 
-const input_files = [ "LSP16165.json", "LSP16169.json", "LSP16171.json", "LSP16179.json" ]
+// function to add .json extension to string
+const to_json_path = (path) => {
+  return `${path}.json`;
+}
+
+// get all user provide arguments
+const input_ids = process.argv.slice(2).map(x => x.replace('.json', ''));
+
+if (input_ids.length < 1) {
+  console.log('Usage: node convert_from_pathviewer.js $IMAGE_ID1 $IMAGE_ID2...');
+  process.exit(1);
+}
+
 const template_file = "template.story.json"
-
-
 const template = read_json(template_file)
-const inputs = input_files.map(i => read_json(i))
 
-for (path of input_files) {
+for (in_id of input_ids) {
   const groups = [];
   const temp = {...template}
+  const path = to_json_path(in_id);
   const input = read_json(path);
   for (group of input.groups) {
     const name = group.name;
@@ -41,9 +59,8 @@ for (path of input_files) {
       render: channels
     })
   }
-  const sample_name = path.split('.').reverse()[1] || '';
-  const new_path = `${sample_name}.story.json`;
-  temp.sample_info.name = sample_name;
+  const new_path = `${in_id}.story.json`;
+  temp.sample_info.name = in_id;
   temp.groups = groups
   write_json(new_path, temp)
 }
