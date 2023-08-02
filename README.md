@@ -1,4 +1,4 @@
-## Adding marker info to Exhibit
+## Add markers to Exhibit
 
 If an exhibit.json file is generated without marker names, the following script can add them afterwards.
 
@@ -11,7 +11,6 @@ The result will be written to standard output. To save as the original exhibit.j
 
 ```
 python add_marker_names.py exhibit.json markers.csv > exhibit.json
-```
 ```
 
 ## Export from Pathviewer to Minerva
