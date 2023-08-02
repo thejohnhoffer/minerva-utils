@@ -1,3 +1,19 @@
+## Adding marker info to Exhibit
+
+If an exhibit.json file is generated without marker names, the following script can add them afterwards.
+
+```
+cd edit_exhibt_json
+python add_marker_names.py exhibit.json markers.csv
+```
+
+The result will be written to standard output. To save as the original exhibit.json:
+
+```
+python add_marker_names.py exhibit.json markers.csv > exhibit.json
+```
+```
+
 ## Export from Pathviewer to Minerva
 
 Here's how to export channel rendering settings from Pathviewer. First, login to O2 using your eCommons ID.
